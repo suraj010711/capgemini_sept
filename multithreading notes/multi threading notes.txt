@@ -1,0 +1,497 @@
+Intro
+Threads?
+Why multithreading?
+Core in processor
+Gaming
+Main is also a thread
+How we are going to call thread?
+Extens thread  / Implement Runnable
+
+Second
+Thread Demo sleep
+Dog cat Example
+Thread class Run method
+Need of interface Runnable... bcz we can't extend 2 class if needed
+
+
+class Dog extends Thread{
+	@Override
+	public void run(){
+		for (int i = 1; i <= 4; i++) {
+			System.out.println("DOG");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+class Cat extends Thread{
+	@Override
+	public void run(){
+		for (int i = 1; i <= 4; i++) {
+			System.out.println("Cat");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+public class Tester {
+	public static void main(String[] args) {
+		Dog dog=new Dog();
+		Cat cat=new Cat();
+		dog.start();
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cat.start();
+	}
+}
+
+
+Third
+
+Using Interface Create Thread object and pass class inside it
+
+
+class Dog implements Runnable{
+	@Override
+	public void run(){
+		for (int i = 1; i <= 4; i++) {
+			System.out.println("DOG");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+class Cat implements Runnable{
+	@Override
+	public void run(){
+		for (int i = 1; i <= 4; i++) {
+			System.out.println("Cat");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+public class Tester {
+	public static void main(String[] args) {
+		Dog dog=new Dog();
+		Cat cat=new Cat();
+		
+		Thread t1=new Thread(dog);
+		Thread t2=new Thread(cat);
+		
+		t1.start();
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		t2.start();
+	}
+}
+
+
+Fourth
+
+Using Lamda Functions
+
+
+public class Tester {
+	public static void main(String[] args) {
+
+		Thread t1 = new Thread(() -> {
+			for (int i = 1; i <= 5; i++) {
+				System.out.println("Dog");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		Thread t2 = new Thread(() -> {
+			for (int i = 1; i <= 5; i++) {
+				System.out.println("Cat");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		t1.start();
+		try {
+			Thread.sleep(150);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		t2.start();
+	}
+}
+
+
+Fifth
+
+Suppose you want to add print at end!
+But it’ll execute in middle
+
+package demo;
+
+public class Tester {
+	public static void main(String[] args) throws InterruptedException {
+
+		Thread t1 = new Thread(() -> {
+			for (int i = 1; i <= 5; i++) {
+				System.out.println("Dog");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		Thread t2 = new Thread(() -> {
+			for (int i = 1; i <= 5; i++) {
+				System.out.println("Cat");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		t1.start();
+		try {
+			Thread.sleep(150);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		t2.start();
+		
+		t1.join();
+		t2.join();
+		
+		System.out.println(t1.isAlive());
+		System.out.println("End");
+	}
+}
+
+
+Sixth
+Name of thread
+Priority
+
+
+public class Tester {
+	public static void main(String[] args) throws InterruptedException {
+
+		Thread t1 = new Thread(() -> {
+			for (int i = 1; i <= 5; i++) {
+				System.out.println("Dog");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, "Dog Thread");
+		Thread t2 = new Thread(() -> {
+			for (int i = 1; i <= 5; i++) {
+				System.out.println("Cat");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		}, "Cat Thread");
+
+		System.out.println(t1.getName());
+		System.out.println(t2.getName());
+
+		t1.start();
+		try {
+			Thread.sleep(150);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		t2.start();
+
+		t1.join();
+		t2.join();
+
+		System.out.println(t1.isAlive());
+		System.out.println("End");
+	}
+}
+
+
+Seventh
+
+Synchornize
+Part 1
+
+class Count {
+	int counter;
+	
+	public void increment() {
+		counter++;
+	}
+}
+
+public class Tester {
+	public static void main(String[] args)  throws Exception{
+		
+		Count c=new Count();
+//		c.increment();
+//		c.increment();
+		
+		Thread t1=new Thread(()->{
+			for (int i = 1; i <=1000; i++) {
+				c.increment();
+			}
+		});
+		
+		t1.start();
+//		t1.join();
+		System.out.println(c.counter);
+	}
+}
+
+
+Part 2
+
+
+class Count {
+	int counter;
+	
+	public synchronized void increment() {
+		counter++;
+	}
+}
+
+public class Tester {
+	public static void main(String[] args)  throws Exception{
+		
+		Count c=new Count();
+//		c.increment();
+//		c.increment();
+		
+		Thread t1=new Thread(()->{
+			for (int i = 1; i <=1000; i++) {
+				c.increment();
+			}
+		});
+		
+		Thread t2=new Thread(()->{
+			for (int i = 1; i <=1000; i++) {
+				c.increment();
+			}
+		});
+		
+		
+		t1.start();
+		t2.start();
+		t1.join();
+		t2.join();
+		System.out.println(c.counter);
+	}
+}
+
+
+Eight Part 1
+
+Thread Inter Communication
+
+package demo;
+
+class Q {
+	int num;
+
+	public void put(int num) {
+
+		System.out.println("Put : " + num);
+		this.num = num;
+
+	}
+
+	public void get() {
+
+		System.out.println("Get : " + num);
+
+	}
+}
+
+class Producer implements Runnable {
+	Q q;
+
+	public Producer(Q q) {
+		this.q = q;
+		Thread t=new Thread(this, "Producer");
+		t.start();
+
+	}
+
+	public void run() {
+		int i = 0;
+		while (true) {
+			q.put(i++);
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+			}
+		}
+	}
+}
+
+class Consumer implements Runnable {
+	Q q;
+
+	public Consumer(Q q) {
+		this.q = q;
+		Thread t=new Thread(this, "Consumer");
+		t.start();
+		
+	}
+
+	public void run() {
+		while (true) {
+			q.get();
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+			}
+		}
+	}
+}
+
+public class Tester {
+	public static void main(String[] args) {
+		Q q = new Q();
+		new Producer(q);
+		new Consumer(q);
+	}
+}
+
+
+
+Part 2
+
+
+package demo;
+
+class Q {
+	int num;
+	boolean valueSet = false;
+
+	public synchronized void put(int num) {
+		while (valueSet) {
+			try {
+				wait();
+			} catch (Exception e) {
+			}
+		}
+		System.out.println("Put : " + num);
+		this.num = num;
+		valueSet = true;
+		notify();
+	}
+
+	public synchronized void get() {
+		while (!valueSet) {
+			try {
+				wait();
+			} catch (Exception e) {
+			}
+		}
+		System.out.println("Get : " + num);
+		valueSet = false;
+		notify();
+	}
+}
+
+class Producer implements Runnable {
+	Q q;
+
+	public Producer(Q q) {
+		this.q = q;
+		Thread t = new Thread(this, "Producer");
+		t.start();
+	}
+
+	public void run() {
+		int i = 0;
+		while (true) {
+			q.put(i++);
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+			}
+		}
+	}
+}
+
+class Consumer implements Runnable {
+	Q q;
+
+	public Consumer(Q q) {
+		this.q = q;
+		Thread t = new Thread(this, "Consumer");
+		t.start();
+	}
+
+	public void run() {
+		while (true) {
+			q.get();
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+			}
+		}
+	}
+}
+
+public class Tester {
+	public static void main(String[] args) {
+		Q q = new Q();
+		new Producer(q);
+		new Consumer(q);
+	}
+}
+
+
+
