@@ -1,0 +1,89 @@
+P1
+Given a method with pan card no as string input .Write code to validate PAN no against following rules:
+1)there must be 8 characters
+2)first 3 letters must be alphabets followed by 4 digit number and ends with alphabet.
+3)all alphabets should be in capital case
+If pan card no is valid return 1as output else return 2 as output
+Example
+input=ALD3245E
+out=1
+
+
+....................................................................................................................
+
+P2
+input1 is a map<Integer,Float>
+
+get the even number from keys and find the avg of values of these keys.
+answer should be rounded to two numbers after decimal
+
+eg:- the output number for below inp should be 15.28
+
+package demo;
+
+import java.util.*;
+
+public class Tester {
+	public static void main(String[] args) {
+		Map<Integer, Float> m1 = new HashMap<Integer, Float>();
+		m1.put(1, (float) 12.93);
+		m1.put(2, (float) 15.67);
+		m1.put(3, (float) 17.27);
+		m1.put(4, (float) 14.88);
+		System.out.println(avgOfEvenKeyValues(m1));
+	}
+
+	public static float avgOfEvenKeyValues(Map<Integer, Float> m1) {
+		//code here
+		return 0;
+	}
+}
+
+
+
+
+.........................................................................................................................
+
+P3
+
+Create a program to get the hashmap from the given input string array where the key for the hashmap
+   is first three letters of array element in uppercase and the value of hashmap is the element itself
+   Input:{“goa”,”kerala”,”gujarat”}                 [string array]
+   Output:{{GOA,goa},{KER,kerala},{GUJ,Gujarat}}    [hashmap]
+
+package demo;
+
+import java.util.*;
+
+public class Tester {
+	public static void main(String[] args) {
+		String[] s1 = { "goa", "kerala", "gujarat" };
+		putvalues(s1);
+	}
+
+	public static void putvalues(String[] s1) {
+		//code here
+	}
+}
+
+
+
+
+.................................................................................................................................
+
+P4
+
+input="hello"
+    output="hlo"; Alternative positions...
+
+public class Tester {
+	public static void main(String[] args) {
+		String s = "Hello";
+		System.out.println(alternatingChar(s));
+	}
+
+	public static String alternatingChar(String s) {
+		//code here
+		return "";
+	}
+}
